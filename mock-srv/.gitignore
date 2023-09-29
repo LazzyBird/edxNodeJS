@@ -56,5 +56,5 @@ profile-*
 profile*
 *clinic*
 *flamegraph*
-/node_modules
-/plugins
+node_modules/
+plugins/
