@@ -1,36 +1,35 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import AutoLoad from '@fastify/autoload'
-import cors from '@fastify/cors'
+const API = 'http://localhost:3000'
 
+const populateProducts = async (category) => {
+  const products = document.querySelector('#products')
+  products.innerHTML = ''
+  const res = await fetch(`${API}/${category}`)
+  const data = await res.json()
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-
-// Pass --options via CLI arguments in command to enable these options.
-export const options = {}
-
-
-export default async function (fastify, opts) {
-  // Place here your custom code!
-  fastify.register(cors)
-  // Do not touch the following lines
-
-
-  // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
-  // through your application
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'plugins'),
-    options: Object.assign({}, opts)
-  })
-
-
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts)
-  })
+  for (const product of data) {
+    const item = document.createElement('product-item')
+    for (const key of ['name', 'rrp', 'info']) {
+      const span = document.createElement('span')
+      span.slot = key
+      span.textContent = product[key]
+      item.appendChild(span)
+    }
+    products.appendChild(item)
+  }
 }
+
+const category = document.querySelector('#category')
+
+category.addEventListener('input', async ({ target }) => {
+  await populateProducts(target.value)
+})
+
+ 
+
+ customElements.define('product-item', class Item extends HTMLElement {
+  constructor() {
+    super()
+    const itemTmpl = document.querySelector('#item').content
+    this.attachShadow({mode: 'open'}).appendChild(itemTmpl.cloneNode(true))
+  }
+})
