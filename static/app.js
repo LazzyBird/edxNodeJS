@@ -40,11 +40,11 @@ let socket = null;
 // Realtime orders handler using WebSocket
 const realtimeOrders = (category) => {
   if (socket) socket.close();
-  socket = new WebSocket(${WS_API}/orders/${category});
+  socket = new WebSocket(`${WS_API}`/orders/`${category}`);
   socket.addEventListener("message", ({ data }) => {
     try {
       const { id, total } = JSON.parse(data);
-      const item = document.querySelector([data-id="${id}"]);
+      const item = document.querySelector(`[data-id="${id}"]`);
       if (item === null) return;
       const span =
         item.querySelector('[slot="orders"]')
