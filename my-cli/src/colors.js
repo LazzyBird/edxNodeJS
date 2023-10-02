@@ -18,27 +18,3 @@ export const txWhite = chalk.rgb(236, 240, 241);
 export const txYellow = chalk.rgb(241, 196, 15);
 
 // console.log(txYellow('Hello, I’m a Yellow string'))
-
-// Get the current timestamp
-const timestamp = () => new Date().toLocaleString();
-
-export const displayTimestamp = () => bgPurple(timestamp());
-
-export const displayInfo = (msg) => bgYellow.bold(`ℹ️ ${msg ?? "Info:"}`);
-
-export const displaySuccess = (msg = "") =>
-  bgCyan.inverse.bold(`✅ Success! ${msg}`);
-
-export const displayCategory = (category) => txGreen.bold.underline(category);
-
-export const displayAmount = (amount) => txYellow.bold.underline(`$${amount}`);
-
-export const displayID = (id) => txCyan.bold(id);
-
-export const displayName = (name) => txCyan(name);
-
-export const displayRRP = (rrp) => txYellow.bold(`$${rrp}`);
-
-export const displayText = (msg) => txPurple(msg);
-
-export const displayKey = (key) => txBlue.bold(key);
