@@ -15,6 +15,10 @@ import {
   displayText,
   displayTimestamp
 } from "./displays.js";
+
+// trying to import prompt
+//import {  } from "./prompts.js";
+
 // Set the API URL
 const API = "http://localhost:3000";
 // Set the categories
